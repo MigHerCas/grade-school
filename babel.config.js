@@ -9,6 +9,10 @@ module.exports = {
         useBuiltIns: false,
       },
     ],
+    ["@babel/preset-typescript"],
   ],
-  plugins: ["@babel/plugin-syntax-bigint"],
+  plugins: [
+    "@babel/plugin-syntax-bigint",
+    "@babel/plugin-transform-typescript",
+  ],
 };
