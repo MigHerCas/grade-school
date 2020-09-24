@@ -2,7 +2,18 @@
   "name": "codesubmit-javascript",
   "description": "CodeSubmit JavaScript",
   "author": "CodeSubmit",
+  "license": "MIT",
   "private": true,
+  "scripts": {
+    "start": "webpack-dev-server --open",
+    "build": "webpack",
+    "server": "ts-node server/server.ts",
+    "test": "jest --no-cache ./*",
+    "watch": "jest --no-cache --watch ./*",
+    "lint": "eslint .",
+    "lint-test": "eslint . && jest --no-cache ./* "
+  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
@@ -15,10 +26,13 @@
     "@typescript-eslint/parser": "^4.2.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.5.1",
+    "css-loader": "^4.3.0",
     "eslint": "^7.9.0",
     "eslint-plugin-import": "^2.20.2",
+    "file-loader": "^6.1.0",
     "jest": "^25.5.2",
     "shelljs": "^0.8.4",
+    "style-loader": "^1.2.1",
     "ts-loader": "^8.0.4",
     "typescript": "^4.0.3",
     "webpack": "^4.44.2",
@@ -29,13 +43,5 @@
     "modulePathIgnorePatterns": [
       "package.json"
     ]
-  },
-  "scripts": {
-    "test": "jest --no-cache ./*",
-    "watch": "jest --no-cache --watch ./*",
-    "lint": "eslint .",
-    "lint-test": "eslint . && jest --no-cache ./* "
-  },
-  "license": "MIT",
-  "dependencies": {}
+  }
 }
