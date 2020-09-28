@@ -10,7 +10,7 @@ export type StudentName =
   | "Luuk"
   | "Jesse";
 
-export type GradeName =
+export type gradeName =
   | "Ethical Hacking"
   | "Cannabis Cultivation"
   | "Bowling Industry Management"
