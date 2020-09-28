@@ -1,15 +1,15 @@
-import { GradeName, StudentName } from "shared/sharedModels";
+import { gradeName, StudentName } from "shared/sharedModels";
 import GradeSchool from "./GradeSchool";
 import Student from "./Student";
 
 export interface Requirement {
   minimumAge?: number;
-  requiredGrades?: Grade[];
+  requiredGrades?: number[];
 }
 
 export interface GradeInfo {
   gradeId: number;
-  GradeName: GradeName;
+  gradeName: gradeName;
   requirements: Requirement[];
 }
 
@@ -22,6 +22,7 @@ export default class Grade extends GradeSchool {
     this.gradeInfo = gradeInfo;
   }
 
+  // Getters
   public getGradeInfo(): GradeInfo {
     return this.gradeInfo;
   }
