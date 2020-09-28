@@ -1,4 +1,51 @@
-// import GradeSchool from "../src/GradeSchool";
+import Grade from "./../src/Grade";
+import Student from "src/Student";
+import GradeSchool from "../src/GradeSchool";
+
+describe("School", () => {
+  let school: GradeSchool;
+
+  beforeEach(() => {
+    school = new GradeSchool();
+  });
+
+  // List roster (empty)
+  xtest("A new school has an empty roster", () => {
+    expect(school.roster()).toEqual({});
+  });
+
+  // Add student
+  // 1- With requirements
+  //    A) MinimumAge
+  xtest("adding a student adds them to the roster for the given grade", () => {
+    const expectedResponse = { 1: ["Milan"] };
+    const sampleStudent = new Student("Milan", 1997);
+    const sampleGrade = new Grade({
+      gradeId: 1,
+      gradeName: "Clownology",
+      requirements: [
+        {
+          minimumAge: 18,
+        },
+      ],
+    });
+
+    school.enrollStudent(sampleStudent, sampleGrade);
+    expect(school.roster()).toEqual(expectedResponse);
+  });
+});
+//    B) Required completed grades
+// 2- No requirements
+
+// Sorted doster (with students & grades)
+
+// Sort students by grade
+
+// Finish grade
+// 1- One student
+// 2- Every enrolled student in that grade
+
+// Remove student from grade (quit)
 
 // describe("School", () => {
 //   let school: GradeSchool;

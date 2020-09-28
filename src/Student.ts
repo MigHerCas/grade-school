@@ -3,7 +3,7 @@ import Grade from "./Grade";
 
 export interface StudentProps {
   currentlyCoursing: Grade | null;
-  coursedDegrees: Grade[];
+  coursedDegrees: number[] | [];
 }
 
 export default class Student {
@@ -14,13 +14,16 @@ export default class Student {
   constructor(
     studentName: StudentName,
     bornYear: number,
-    staticProps: StudentProps
   ) {
     this.studentName = studentName;
     this.bornYear = bornYear;
-    this.staticProps = staticProps;
+    this.staticProps = {
+      currentlyCoursing: null,
+      coursedDegrees: []
+    };
   }
 
+  // Getters
   public getName(): string {
     return this.studentName;
   }
@@ -34,13 +37,14 @@ export default class Student {
     return this.staticProps;
   }
 
+  // Simulates grade completion, adding this grade to coursedDegrees
   public completeGrade(): void {
     let { coursedDegrees, currentlyCoursing } = this.staticProps;
-    coursedDegrees.push(currentlyCoursing!);
+    coursedDegrees.push(currentlyCoursing?.getGradeInfo().gradeId);
     currentlyCoursing = null;
   }
 
-  // Quit current grade
+  // Quit current grade (doesn't add it to coursedDegrees)
   private static quitGrade(student: Student): void {
     student.staticProps.currentlyCoursing = null;
   }

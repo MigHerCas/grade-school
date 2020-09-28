@@ -14,5 +14,6 @@ module.exports = {
   plugins: [
     "@babel/plugin-syntax-bigint",
     "@babel/plugin-transform-typescript",
+    "@babel/preset-typescript",
   ],
 };

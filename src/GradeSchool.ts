@@ -1,18 +1,75 @@
-//
-// This is only a SKELETON file for the 'Grade School' exercise. It's been provided as a
-// convenience to get you started writing code faster.
-//
+import Grade, { GradeInfo } from "./Grade";
+import Student, { StudentProps } from "./Student";
 
 export class GradeSchool {
-  roster() {
-    throw new Error("Remove this statement and implement this function");
+  // Graduates student from an specific degree
+  public graduateStudent(student: Student): void {
+    const { currentlyCoursing } = student.getProps();
+
+    if (currentlyCoursing) {
+      this.delistStudent(student);
+      student.completeGrade();
+    }
+    currentlyCoursing && this.delistStudent(student);
   }
 
-  add() {
-    throw new Error("Remove this statement and implement this function");
+  // Evaluates if a student is able to enroll a grade depending on the requirements.
+  public studentIsValid(student: Student, grade: Grade): boolean {
+    const { requirements }: GradeInfo = grade.getGradeInfo();
+    const { coursedDegrees }: StudentProps = student.getProps();
+
+    requirements.forEach((requirement) => {
+      const passRequirements =
+        student.getAge() < requirement.minimumAge! ||
+        requirement.requiredGrades!.every((requiredGrade) => {
+          coursedDegrees.includes(requiredGrade);
+        });
+
+      if (!passRequirements) {
+        return false;
+      }
+    });
+
+    return true;
   }
 
-  grade() {
-    throw new Error("Remove this statement and implement this function");
+  // Add student to grade -> maybe merge it within the School
+  public enrollStudent(student: Student, grade: Grade): void {
+    let { gradeId, gradeName } = grade.getGradeInfo();
+    if (this.studentIsValid(student, grade)) {
+    } else {
+      throw new Error(
+        `Student: ${student.getName()} can't be accepted in grade: [${gradeId}] - ${gradeName}
+        .`
+      );
+    }
+  }
+
+  // Remove student
+  private delistStudent(student: Student): void {
+    let currentlyCoursing = student.getProps().currentlyCoursing;
+
+    if (currentlyCoursing) {
+      let indexToDelist = currentlyCoursing
+        .getEnrolledStudents()
+        .indexOf(student, 0);
+
+      if (indexToDelist > -1) {
+        currentlyCoursing.getEnrolledStudents().splice(indexToDelist, 1);
+      }
+    }
+  }
+
+  public roster() {
+    const roster = {};
+
+    this.grades.forEach((grade) => {
+      let gradeStudents = grade.listStudents();
+      let { gradeId } = grade.getGradeInfo();
+
+      roster[gradeId] = gradeStudents;
+    });
+
+    return roster;
   }
 }
