@@ -16,33 +16,30 @@ export default class GradeSchool {
     return { students: this.students, grades: this.grades };
   }
 
-  private studentIsAccepted(student: Student): boolean {
-    return false;
-  }
-
   // Graduates student from an specific degree
   public graduateStudent(student: Student): void {
     const { currentlyCoursing } = student.getProps();
 
-  if (currentlyCoursing) {
-    this.delistStudent(student);
-    student.completeGrade();
-  }
+    if (currentlyCoursing) {
+      this.delistStudent(student);
+      student.completeGrade();
+    }
     currentlyCoursing && this.delistStudent(student);
   }
 
   // Evaluates if a student is able to enroll a grade depending on the requirements.
-  protected studentIsValid(student: Student, grade: Grade): boolean {
+  public studentIsValid(student: Student, grade: Grade): boolean {
     const { requirements }: GradeInfo = grade.getGradeInfo();
     const { coursedDegrees }: StudentProps = student.getProps();
 
-    requirements.forEach(({ minimumAge, requiredGrades }: Requirement) => {
-      if (
-        student.getAge() < minimumAge! ||
-        !requiredGrades!.every((requiredGrade) =>
-          coursedDegrees.includes(requiredGrade)
-        )
-      ) {
+    requirements.forEach((requirement) => {
+      const passRequirements =
+        student.getAge() < requirement.minimumAge! ||
+        requirement.requiredGrades!.every((requiredGrade) => {
+          coursedDegrees.includes(requiredGrade);
+        });
+
+      if (!passRequirements) {
         return false;
       }
     });
@@ -51,12 +48,12 @@ export default class GradeSchool {
   }
 
   // Add student to grade -> maybe merge it within the School
-  private enrollStudent(student: Student, grade: Grade): void {
-    let { gradeId, GradeName } = grade.getGradeInfo();
+  public enrollStudent(student: Student, grade: Grade): void {
+    let { gradeId, gradeName } = grade.getGradeInfo();
     if (this.studentIsValid(student, grade)) {
     } else {
       throw new Error(
-        `Student: ${student.getName()} can't be accepted in grade: [${gradeId}] - ${GradeName}
+        `Student: ${student.getName()} can't be accepted in grade: [${gradeId}] - ${gradeName}
         .`
       );
     }
