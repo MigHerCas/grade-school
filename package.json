@@ -10,8 +10,7 @@
     "lint": "eslint .",
     "lint-test": "eslint . && jest --no-cache ./* "
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
@@ -29,12 +28,14 @@
     "eslint-plugin-import": "^2.20.2",
     "jest": "^25.5.2",
     "shelljs": "^0.8.4",
+    "ts-jest": "^26.4.0",
     "ts-loader": "^8.0.4",
     "typescript": "^4.0.3"
   },
   "jest": {
     "modulePathIgnorePatterns": [
-      "package.json"
+      "package.json",
+      "**/*.spec.ts"
     ]
   }
 }
