@@ -37,7 +37,7 @@ export default class Student {
   // Simulates grade completion, adding this grade to coursedDegrees
   public completeGrade(): void {
     let { coursedDegrees, currentlyCoursing } = this.staticProps;
-    coursedDegrees.push(currentlyCoursing?.getGradeInfo().gradeId);
+    coursedDegrees.push(currentlyCoursing?.getGradeInfo().gradeId!);
     currentlyCoursing = null;
   }
 
