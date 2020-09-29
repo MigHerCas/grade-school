@@ -3,7 +3,7 @@ import Student, { StudentProps } from "./Student";
 
 export class GradeSchool {
   private readonly grades: Grade[];
-  
+
   public addGrade(grade: Grade) {
     this.grades.push(grade);
   }
@@ -23,7 +23,7 @@ export class GradeSchool {
   public studentIsValid(student: Student, grade: Grade): boolean {
     const { requirements }: GradeInfo = grade.getGradeInfo();
     const { coursedDegrees }: StudentProps = student.getProps();
-
+  
     requirements.forEach((requirement) => {
       const passRequirements =
         student.getAge() < requirement.minimumAge! ||
@@ -35,6 +35,7 @@ export class GradeSchool {
         return false;
       }
     });
+
     return true;
   }
 
