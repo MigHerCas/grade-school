@@ -3,7 +3,7 @@ import Grade from "./Grade";
 
 export interface StudentProps {
   currentlyCoursing: Grade | null;
-  coursedDegrees: number[] | [];
+  coursedDegrees: number[];
 }
 
 export default class Student {
@@ -11,15 +11,12 @@ export default class Student {
   private readonly bornYear: number;
   private readonly staticProps: StudentProps;
 
-  constructor(
-    studentName: StudentName,
-    bornYear: number,
-  ) {
+  constructor(studentName: StudentName, bornYear: number) {
     this.studentName = studentName;
     this.bornYear = bornYear;
     this.staticProps = {
       currentlyCoursing: null,
-      coursedDegrees: []
+      coursedDegrees: [],
     };
   }
 
