@@ -60,4 +60,33 @@ describe("School", () => {
     school.enrollStudent(sampleStudent, sampleGrade);
     expect(school.roster()).toEqual(expectedResponse);
   });
+
+  // Sort students by grade
+  xtest("adding more students to the same grade adds them to the roster (alphabetically ordered)", () => {
+    const sampleGrade = new Grade({
+      gradeId: 2,
+      gradeName: "Bagpiping",
+      requirements: [
+        {
+          minimumAge: 17,
+        },
+      ],
+    });
+
+    const sampleStudents = [
+      new Student("Daan", 1995),
+      new Student("Tesa", 1998),
+      new Student("Julia", 2001),
+    ];
+
+    sampleStudents.map((sampleStudent) => {
+      school.enrollStudent(sampleStudent, sampleGrade);
+    });
+
+    const expectedDb = { 2: ["Dan", "Julia", "Tesa"] };
+    expect(school.roster()).toEqual(expectedDb);
+  });
+
+  // Remove student from grade (quit)
+  xtest("removing student from grade removes him/her from the roster", () => {});
 });
