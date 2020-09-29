@@ -1,5 +1,5 @@
 import { gradeName, StudentName } from "shared/sharedModels";
-import GradeSchool from "./GradeSchool";
+import { GradeSchool } from "./GradeSchool";
 import Student from "./Student";
 
 export interface Requirement {

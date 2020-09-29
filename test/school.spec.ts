@@ -1,6 +1,6 @@
 import Grade from "./../src/Grade";
 import Student from "src/Student";
-import GradeSchool from "../src/GradeSchool";
+import { GradeSchool } from "../src/GradeSchool";
 
 describe("School", () => {
   let school: GradeSchool;

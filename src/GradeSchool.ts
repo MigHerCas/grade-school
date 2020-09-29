@@ -2,6 +2,12 @@ import Grade, { GradeInfo } from "./Grade";
 import Student, { StudentProps } from "./Student";
 
 export class GradeSchool {
+  private readonly grades: Grade[];
+  
+  public addGrade(grade: Grade) {
+    this.grades.push(grade);
+  }
+
   // Graduates student from an specific degree
   public graduateStudent(student: Student): void {
     const { currentlyCoursing } = student.getProps();
@@ -29,7 +35,6 @@ export class GradeSchool {
         return false;
       }
     });
-
     return true;
   }
 
@@ -61,13 +66,16 @@ export class GradeSchool {
   }
 
   public roster() {
-    const roster = {};
+    let roster = {};
 
     this.grades.forEach((grade) => {
       let gradeStudents = grade.listStudents();
-      let { gradeId } = grade.getGradeInfo();
+      let gradeId = grade.getGradeInfo().gradeId;
 
-      roster[gradeId] = gradeStudents;
+      roster = {
+        ...roster,
+        [gradeId]: gradeStudents,
+      };
     });
 
     return roster;
