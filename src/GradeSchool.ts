@@ -23,7 +23,7 @@ export class GradeSchool {
   public studentIsValid(student: Student, grade: Grade): boolean {
     const { requirements }: GradeInfo = grade.getGradeInfo();
     const { coursedDegrees }: StudentProps = student.getProps();
-  
+
     requirements.forEach((requirement) => {
       const passRequirements =
         student.getAge() < requirement.minimumAge! ||
@@ -43,6 +43,7 @@ export class GradeSchool {
   public enrollStudent(student: Student, grade: Grade): void {
     let { gradeId, gradeName } = grade.getGradeInfo();
     if (this.studentIsValid(student, grade)) {
+      grade.addStudent(student);
     } else {
       throw new Error(
         `Student: ${student.getName()} can't be accepted in grade: [${gradeId}] - ${gradeName}

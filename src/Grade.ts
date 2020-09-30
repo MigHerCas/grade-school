@@ -31,6 +31,10 @@ export default class Grade extends GradeSchool {
     return this.enrolledStudents;
   }
 
+  public addStudent(student: Student) {
+    this.enrolledStudents.push(student);
+  }
+
   // List students
   public listStudents(): string[] {
     let names: string[] = [];
