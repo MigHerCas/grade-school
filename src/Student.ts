@@ -40,9 +40,4 @@ export default class Student {
     coursedDegrees.push(currentlyCoursing?.getGradeInfo().gradeId!);
     currentlyCoursing = null;
   }
-
-  // Quit current grade (doesn't add it to coursedDegrees)
-  private static quitGrade(student: Student): void {
-    student.staticProps.currentlyCoursing = null;
-  }
 }

@@ -88,5 +88,22 @@ describe("School", () => {
   });
 
   // Remove student from grade (quit)
-  xtest("removing student from grade removes him/her from the roster", () => {});
+  xtest("removing student from grade removes him/her from the roster", () => {
+    const expectedDb = { 4: [] };
+    const sampleStudent = new Student("Lucas", 1992);
+    const sampleGrade = new Grade({
+      gradeId: 4,
+      gradeName: "Cannabis Cultivation",
+      requirements: [
+        {
+          minimumAge: 19,
+        },
+      ],
+    });
+
+    school.enrollStudent(sampleStudent, sampleGrade);
+    school.delistStudent(sampleStudent);
+    
+    expect(school.roster()).toEqual(expectedDb);
+  });
 });

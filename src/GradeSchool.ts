@@ -53,7 +53,7 @@ export class GradeSchool {
   }
 
   // Remove student
-  private delistStudent(student: Student): void {
+  public delistStudent(student: Student): void {
     let currentlyCoursing = student.getProps().currentlyCoursing;
 
     if (currentlyCoursing) {
