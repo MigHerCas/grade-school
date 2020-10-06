@@ -8,7 +8,7 @@ export class GradeSchool {
     this.grades.push(grade);
   }
 
-  // Graduates student from an specific degree
+  // Graduates student from an especific degree
   public graduateStudent(student: Student): void {
     const { currentlyCoursing } = student.getProps();
 
