@@ -2,7 +2,7 @@ import Grade, { GradeInfo } from "./Grade";
 import Student, { StudentProps } from "./Student";
 
 export class GradeSchool {
-  private readonly grades: Grade[];
+  private readonly grades: Grade[] = [];
 
   public addGrade(grade: Grade) {
     this.grades.push(grade);
@@ -23,37 +23,37 @@ export class GradeSchool {
   public studentIsValid(student: Student, grade: Grade): boolean {
     const { requirements }: GradeInfo = grade.getGradeInfo();
     const { coursedDegrees }: StudentProps = student.getProps();
+    let verdict = true;
 
-    requirements.forEach((requirement) => {
-      const passRequirements =
-        student.getAge() < requirement.minimumAge! ||
-        requirement.requiredGrades!.every((requiredGrade) => {
+    requirements.forEach(({minimumAge, requiredGrades}) => {
+      if (minimumAge && student.getAge() < minimumAge) {
+        verdict = false;
+      }
+
+      if (requiredGrades) {
+        let hasRequiredGrades = !requiredGrades?.every((requiredGrade) => {
           coursedDegrees.includes(requiredGrade);
         });
 
-      if (!passRequirements) {
-        return false;
+        if (!hasRequiredGrades) verdict = false;
       }
     });
 
-    return true;
+    return verdict;
   }
 
-  // Add student to grade -> maybe merge it within the School
+  // Add student to grade
   public enrollStudent(student: Student, grade: Grade): void {
-    let { gradeId, gradeName } = grade.getGradeInfo();
+
     if (this.studentIsValid(student, grade)) {
       grade.addStudent(student);
-    } else {
-      throw new Error(
-        `Student: ${student.getName()} can't be accepted in grade: [${gradeId}] - ${gradeName}
-        .`
-      );
+      student.setCurrentDegree(grade);
     }
   }
 
   // Remove student
   public delistStudent(student: Student): void {
+    console.log(student, student.getProps());
     let currentlyCoursing = student.getProps().currentlyCoursing;
 
     if (currentlyCoursing) {
@@ -69,17 +69,18 @@ export class GradeSchool {
 
   public roster() {
     let roster = {};
+    if (this.grades) {
 
-    this.grades.forEach((grade) => {
-      let gradeStudents = grade.listStudents();
-      let gradeId = grade.getGradeInfo().gradeId;
+      this.grades.forEach((grade) => {
+        let gradeStudents = grade.listStudents();
+        let gradeId = grade.getGradeInfo().gradeId;
 
-      roster = {
-        ...roster,
-        [gradeId]: gradeStudents,
-      };
-    });
-
+        roster = {
+          ...roster,
+          [gradeId]: gradeStudents,
+        };
+      });
+    }
     return roster;
   }
 }

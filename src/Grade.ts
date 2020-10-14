@@ -1,4 +1,4 @@
-import { gradeName, StudentName } from "shared/sharedModels";
+import { gradeName } from "shared/sharedModels";
 import { GradeSchool } from "./GradeSchool";
 import Student from "./Student";
 

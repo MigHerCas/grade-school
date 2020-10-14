@@ -34,6 +34,10 @@ export default class Student {
     return this.staticProps;
   }
 
+  public setCurrentDegree(grade: Grade) {
+    this.staticProps.currentlyCoursing = grade;
+  }
+
   // Simulates grade completion, adding this grade to coursedDegrees
   public completeGrade(): void {
     let { coursedDegrees, currentlyCoursing } = this.staticProps;

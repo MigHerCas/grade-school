@@ -10,14 +10,14 @@ describe("School", () => {
   });
 
   // List roster (empty)
-  xtest("A new school has an empty roster", () => {
+  test("A new school has an empty roster", () => {
     expect(school.roster()).toEqual({});
   });
 
   // Add student
   // 1- With requirements
   //    A) MinimumAge
-  xtest("adding a student adds them to the roster for the given grade (minimum age required)", () => {
+  test("adding a student adds them to the roster for the given grade (minimum age required)", () => {
     const expectedResponse = { 1: ["Milan"] };
     const sampleStudent = new Student("Milan", 1997);
     const sampleGrade = new Grade({
@@ -30,12 +30,13 @@ describe("School", () => {
       ],
     });
 
+    school.addGrade(sampleGrade);
     school.enrollStudent(sampleStudent, sampleGrade);
     expect(school.roster()).toEqual(expectedResponse);
   });
 
   //    B) Required completed grades
-  xtest("adding a student adds them to the roster for the given grade (coursed grades required)", () => {
+  test("adding a student adds them to the roster for the given grade (coursed grades required)", () => {
     const expectedResponse = { 1: ["Julia"] };
     const sampleStudent = new Student("Julia", 1995);
     const sampleCoursedGrade = new Grade({
@@ -54,6 +55,7 @@ describe("School", () => {
       ],
     });
 
+    school.addGrade(sampleGrade);
     school.enrollStudent(sampleStudent, sampleCoursedGrade);
     sampleStudent.completeGrade();
 
@@ -62,7 +64,7 @@ describe("School", () => {
   });
 
   // Sort students by grade
-  xtest("adding more students to the same grade adds them to the roster (alphabetically ordered)", () => {
+  test("adding more students to the same grade adds them to the roster (alphabetically ordered)", () => {
     const sampleGrade = new Grade({
       gradeId: 2,
       gradeName: "Bagpiping",
@@ -79,16 +81,17 @@ describe("School", () => {
       new Student("Julia", 2001),
     ];
 
+    school.addGrade(sampleGrade);
     sampleStudents.map((sampleStudent) => {
       school.enrollStudent(sampleStudent, sampleGrade);
     });
 
-    const expectedDb = { 2: ["Dan", "Julia", "Tesa"] };
+    const expectedDb = { 2: ["Daan", "Julia", "Tesa"] };
     expect(school.roster()).toEqual(expectedDb);
   });
 
   // Remove student from grade (quit)
-  xtest("removing student from grade removes him/her from the roster", () => {
+  test("removing student from grade removes him/her from the roster", () => {
     const expectedDb = { 4: [] };
     const sampleStudent = new Student("Lucas", 1992);
     const sampleGrade = new Grade({
@@ -101,9 +104,10 @@ describe("School", () => {
       ],
     });
 
+    school.addGrade(sampleGrade);
     school.enrollStudent(sampleStudent, sampleGrade);
     school.delistStudent(sampleStudent);
-    
+
     expect(school.roster()).toEqual(expectedDb);
   });
 });
